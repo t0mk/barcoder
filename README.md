@@ -1,6 +1,27 @@
 # Barcoder
 
-.. is a CLI tool written in Go which creates PDf file with Finnish payment barcodes. The PDf can be printed 
+.. is a CLI tool written in Go which creates PDf file with Finnish payment barcodes. It transforms YAML 
+
+```yaml
+---
+- name: Normaalihintainen kausi
+  iban: FI3557700520275493 
+  amount: 45
+  ref: 4220161
+
+- name: Normaalikausi + jäsenmaksu (jos maksat molemmat kerralla)
+  iban: FI3557700520275493 
+  amount: 55
+  ref: 4320168
+[...]
+```
+into pdf so it looks like
+
+![pdf](/pdf.png)
+
+See 
+- example input template in [salsadeleste.yml](templates/salsadeleste.yml).
+- example output PDF in [example.pdf](example.pdf).
 
 
 ## Build 
