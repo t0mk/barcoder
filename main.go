@@ -180,7 +180,7 @@ func getPdf(ps []Payment, date string) (*gofpdf.Fpdf, error) {
 
 		if date != "0000-00-00" {
 			pdf.SetXY(90, y+10)
-			pdf.Cell(10, 30, tr("Päivämäärä: "))
+			pdf.Cell(10, 30, tr("Eräpäivä:"))
 
 			pdf.SetXY(120, y+10)
 			pdf.Cell(10, 30, p.Date)
