@@ -1,33 +1,23 @@
 ---
 - name: Normaalihintainen kausi
   iban: FI3557700520275493 
-  amount: 45
+  amount: 50
   ref: 4220161
 
 - name: Normaalikausi + jäsenmaksu (jos maksat molemmat kerralla)
   iban: FI3557700520275493 
-  amount: 55
+  amount: 60
   ref: 4320168
 
 - name: Alennettu kausimaksu (opiskelijat ja eläkeläiset)
   iban: FI3557700520275493 
-  amount: 30
+  amount: 35
   ref: 4720166
 
 - name: Alennettu kausimaksu + jäsenmaksu (jos maksat molemmat kerralla)
   iban: FI3557700520275493 
-  amount: 40
+  amount: 45
   ref: 4820163
-
-- name: 10 Tunnin sarjakortti, Normaalihinta
-  iban: FI3557700520275493 
-  amount: 55
-  ref: 50020153
-
-- name: 10 Tunnin sarjakortti, Alennettu hinta (opiskelijat ja eläkeläiset)
-  iban: FI3557700520275493 
-  amount: 40
-  ref: 30020157
 
 - name: Kertamaksu - 1 Salsatunti
   iban: FI3557700520275493 

@@ -52,6 +52,7 @@ func barcod(p Payment) string {
 	log.Printf("%+v", p)
 	// This is something in Finland... I don't even remember where I
 	// learned this from
+	// EDIT 2020: https://www.finanssiala.fi/maksujenvalitys/dokumentit/Pankkiviivakoodi-opas.pdf
 	codeIBAN := "4" + p.IBAN[2:]
 	codeEUR := fmt.Sprintf("%08s", stripchars(strconv.FormatFloat(p.Amount, 'f', 2, 64), "."))
 	codeRefNum := fmt.Sprintf("%023s", p.Ref)
@@ -110,7 +111,6 @@ func barcodesPrint(c *cli.Context) error {
 }
 
 func main() {
-	now := time.Now()
 	app := &cli.App{
 		Action: barcodesPrint,
 		Name:   "barcodesPrint",
@@ -118,7 +118,7 @@ func main() {
 		Flags: []cli.Flag{
 			&cli.StringFlag{Name: "templ"},
 			&cli.StringFlag{Name: "outfile"},
-			&cli.StringFlag{Name: "date", Value: now.Add(168 * time.Hour).String()[:10]},
+			&cli.StringFlag{Name: "date", Value: "0000-00-00"},
 		},
 	}
 	app.Run(os.Args)
@@ -154,6 +154,7 @@ func getPdf(ps []Payment, date string) (*gofpdf.Fpdf, error) {
 		}
 
 		p.Date = date
+		fmt.Println(p.Date)
 		pdf.SetXY(20, y)
 		pdf.SetFont("Helvetica", "B", 12)
 		pdf.Cell(10, 30, tr(p.Name))
@@ -177,11 +178,13 @@ func getPdf(ps []Payment, date string) (*gofpdf.Fpdf, error) {
 		pdf.SetXY(120, y+5)
 		pdf.Cell(10, 30, p.Ref)
 
-		pdf.SetXY(90, y+10)
-		pdf.Cell(10, 30, tr("Päivämäärä: "))
+		if date != "0000-00-00" {
+			pdf.SetXY(90, y+10)
+			pdf.Cell(10, 30, tr("Päivämäärä: "))
 
-		pdf.SetXY(120, y+10)
-		pdf.Cell(10, 30, p.Date)
+			pdf.SetXY(120, y+10)
+			pdf.Cell(10, 30, p.Date)
+		}
 
 		var opt gofpdf.ImageOptions
 		bcname := fmt.Sprintf("%d%s.gif", i, randString(8))
